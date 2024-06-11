@@ -64,7 +64,7 @@ def migrate():
     cursor = connection.cursor()
 
     players = cursor.execute('SELECT * FROM players').fetchall()
-    matches = cursor.execute('SELECT * FROM matches').fetchall()
+    matches = cursor.execute('SELECT * FROM matches WHERE winner_name IS NOT NULL').fetchall()
     rankings = cursor.execute('SELECT * FROM rankings').fetchall()
 
     cursor.close()
