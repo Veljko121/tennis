@@ -35,15 +35,8 @@ def map_to_mongo_match(match: tuple, match_id: int):
         },
         'round': match[25],
         'score': match[23],
-        # 'date': izgleda da ne postoji :(
-        'winner': {
-            'id': match[7],
-            'name': match[10],
-        },
-        'loser': {
-            'id': match[15],
-            'name': match[18],
-        }
+        'winner_id': match[7],
+        'loser_id': match[15]
     }
     return new_match
 
@@ -52,7 +45,7 @@ def map_to_mongo_ranking(ranking: tuple, ranking_id: int):
         '_id': ranking_id,
         'ranking_date': parse_date(str(ranking[0])),
         'rank': ranking[1],
-        'player': ranking[2],
+        'player_id': ranking[2],
         'points': ranking[3],
     }
     return new_player
