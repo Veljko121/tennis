@@ -91,19 +91,20 @@ def migrate():
     # Inserting data to MongoDB
     client = MongoClient('localhost', 27017)
 
+    client.drop_database('tennis-optimized')
     database = client['tennis-optimized']
 
     players_collection = database['players']
     matches_collection = database['matches']
     rankings_collection = database['rankings']
     
-    players_collection.delete_many({})
-    matches_collection.delete_many({})
-    rankings_collection.delete_many({})
-
     players_collection.insert_many(new_players)
     matches_collection.insert_many(new_matches)
     rankings_collection.insert_many(new_rankings)
+
+    matches_collection.create_index( [ ('round', 1) ], partialFilterExpression = { 'round': { '$in': [ 'F', 'SF' ] } } )
+    matches_collection.create_index( [ ('tournament.level', 1) ], partialFilterExpression = { 'tournament.level': { '$in': [ 'G', 'M', 'F' ] } } )
+    rankings_collection.create_index( [ ('rank', 1) ] )
 
     client.close()
 
