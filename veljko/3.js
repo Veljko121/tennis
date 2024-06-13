@@ -2,6 +2,7 @@
 
 db.matches.aggregate(
 [
+
   {
     $match: {
       round: "F" // samo finalni mecevi
@@ -104,5 +105,6 @@ db.matches.aggregate(
   {
     $limit: 5
   }
+  
 ]
 );

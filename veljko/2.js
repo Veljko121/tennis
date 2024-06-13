@@ -81,14 +81,15 @@ db.rankings.aggregate(
   {
     $project: {
       player_id: "$_id",
-      maxStreak: "$streaks.maxStreak"
+      max_streak: "$streaks.maxStreak"
     }
   },
+  
   {
-    $sort: { maxStreak: -1 }
+    $sort: { max_streak: -1 }
   },
   {
-    $limit: 1
+    $limit: 5
   },
 
   // spajanje sa players tabelom
@@ -100,12 +101,24 @@ db.rankings.aggregate(
       as: "player"
     }
   },
+  
   {
     $addFields: {
       player: {
         $first: "$player"
       }
     }
+  },
+  
+  {
+    $project: {
+      player_name: {
+        $concat: ["$player.first_name", " ", "$player.last_name"]
+      },
+      _id: false,
+      max_streak: true
+    }
   }
+  
 ]
 );

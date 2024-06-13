@@ -116,6 +116,14 @@ db.rankings.aggregate(
   // top 5
   {
     $limit: 5
+  },
+
+  {
+    $addFields: {
+      player_name: {
+        $concat: ['$player.first_name', ' ', '$player.last_name']
+      }
+    }
   }
 
 ]

@@ -5,14 +5,16 @@ db.players.aggregate(
   
   {
     $match: {
-      _id: 104925 // id igraca koji nas zanima
+      _id: {
+        $in: [103819, 104745, 104925]
+      }
     }
   },
 
   // spajanje sa kolekcijom rankinga, dodaje se lista
   // nedelja kada je igrac bio na prvom mestu
   {
-    $lookup: { 
+    $lookup: {
       from: "rankings",
       let: {
         playerId: "$_id"
@@ -98,14 +100,17 @@ db.players.aggregate(
       }
     }
   },
-
+  
   {
     $project: {
       _id: 0,
-      first_name: 1,
-      last_name: 1,
+      full_name: {
+        $concat: ['$first_name', ' ', '$last_name']
+      },
       num_tournaments_during_no1: { $size: "$tournaments_during_no1" }
     }
   }
+  
 ]
+
 );

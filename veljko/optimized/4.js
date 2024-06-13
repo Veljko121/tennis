@@ -2,7 +2,6 @@
 // goat_score = big_titles + weeks_at_no1 / 20.
 // Velike titule su sve titule nivoa Grand Slam, Masters i ATP Finals.
 
-
 db.rankings.aggregate(
 [
   
@@ -102,6 +101,14 @@ db.rankings.aggregate(
   // top 5
   {
     $limit: 5
+  },
+
+  {
+    $addFields: {
+      player_name: {
+        $concat: ['$player.first_name', ' ', '$player.last_name']
+      }
+    }
   }
 
 ]
