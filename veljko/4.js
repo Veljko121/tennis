@@ -7,12 +7,14 @@
 // znacajno se ubrzava nego ako se pocne od meceva
 db.rankings.aggregate(
 [
+  
   // samo rankinzi za prvo mesto, od 3 miliona ostaje 2.5 hiljada
   {
     $match: {
       rank: 1
     }
   },
+
   // grupisu se nedelje po igracu i agregiraju u broj nedelja na prvom mestu
   {
     $group: {
@@ -22,6 +24,7 @@ db.rankings.aggregate(
       }
     }
   },
+
   // spajanje sa mecevima, ali samo finalnim na turnirima nivoa Grand Slam, Masters ili ATP Finals
   // u kome je igrac pobedio
   {
@@ -46,6 +49,7 @@ db.rankings.aggregate(
       as: "matches"
     }
   },
+
   // brojanje velikih titula
   {
     $addFields: {
@@ -113,5 +117,6 @@ db.rankings.aggregate(
   {
     $limit: 5
   }
+
 ]
 );

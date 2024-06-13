@@ -2,6 +2,7 @@
 
 db.matches.aggregate(
 [
+  
   {
     $match: {
       _id: 104925  // id igraca koji nas zanima
@@ -32,8 +33,9 @@ db.matches.aggregate(
     }
   },
 
+  // razdvajamo elemente iz liste meceva, svaki da bude poseban
   {
-    $unwind: "$matches"  // razdvajamo elemente iz liste meceva, svaki da bude poseban
+    $unwind: "$matches"
   },
 
   // grupisu se mecevi po igracu i podlozi
@@ -117,11 +119,14 @@ db.matches.aggregate(
   {
     $project: {
       _id: 0,
-      player_id: "$_id.player_id",
-      first_name: "$_id.first_name",
-      last_name: "$_id.last_name",
+      player: {
+        id: "$_id.player_id",
+        first_name: "$_id.first_name",
+        last_name: "$_id.last_name",
+      },
       surface_stats: 1
     }
   }
+
 ]
 );

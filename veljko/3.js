@@ -73,17 +73,15 @@ db.matches.aggregate(
       as: "rankings"
     }
   },
+
   {
     $sort: {
       titles: -1
     }
   },
+
   {
     $project:
-      /**
-       * specifications: The fields to
-       *   include or exclude.
-       */
       {
         weeks_at_no1: {
           $size: "$rankings"
@@ -93,6 +91,7 @@ db.matches.aggregate(
         winner: true
       }
   },
+
   // samo igraci koji imaju barem 250 nedelja na prvom mestu
   {
     $match: {
@@ -101,6 +100,7 @@ db.matches.aggregate(
       }
     }
   },
+  
   {
     $limit: 5
   }
