@@ -104,6 +104,8 @@ def migrate():
 
     matches_collection.create_index( [ ('round', 1) ], partialFilterExpression = { 'round': { '$in': [ 'F', 'SF' ] } } )
     matches_collection.create_index( [ ('tournament.level', 1) ], partialFilterExpression = { 'tournament.level': { '$in': [ 'G', 'M', 'F' ] } } )
+    matches_collection.create_index( [ ('winner.id', 1) ] )
+    matches_collection.create_index( [ ('loser.id', 1) ] )
     rankings_collection.create_index( [ ('rank', 1) ] )
 
     client.close()
