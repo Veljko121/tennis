@@ -71,15 +71,12 @@ def migrate():
     # Inserting data to MongoDB
     client = MongoClient('localhost', 27017)
 
+    client.drop_database('tennis')
     database = client['tennis']
 
     players_collection = database['players']
     matches_collection = database['matches']
     rankings_collection = database['rankings']
-    
-    players_collection.delete_many({})
-    matches_collection.delete_many({})
-    rankings_collection.delete_many({})
 
     players_collection.insert_many(new_players)
     matches_collection.insert_many(new_matches)
