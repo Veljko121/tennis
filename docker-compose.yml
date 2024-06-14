@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
 
-  mongo:
+  mongodb:
     image: mongo
     ports:
       - 27017:27017
@@ -17,6 +17,9 @@ services:
       - mongodb
     volumes:
       - metabase-data:/metabase-data
+
+#-----------------------------ime baze-----------------------------------------------------------------------
+# mongodb://mongodb:27017/tennis-optimized - korsititi ovaj connection string prilikom povezivanja na mongoDB
     
 volumes:
   mongo-data:
