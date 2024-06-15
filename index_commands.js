@@ -19,3 +19,11 @@ db.matches.createIndex(
 db.rankings.createIndex(
     { 'rank': 1 }
 );
+
+db.rankings.createIndex(
+    { 'player.id': 1 }
+);
+
+db.rankings.createIndex(
+    { 'ranking_date': 1 }
+);

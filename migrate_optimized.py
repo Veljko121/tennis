@@ -107,6 +107,8 @@ def migrate():
     matches_collection.create_index( [ ('winner.id', 1) ] )
     matches_collection.create_index( [ ('loser.id', 1) ] )
     rankings_collection.create_index( [ ('rank', 1) ] )
+    rankings_collection.create_index( [ ('player.id', 1) ] )
+    rankings_collection.create_index([('ranking_date', 1)])
 
     client.close()
 
